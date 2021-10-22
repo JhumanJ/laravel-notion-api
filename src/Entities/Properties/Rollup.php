@@ -90,9 +90,10 @@ class Rollup extends Property
             // TODO
             $rollupPropertyItem['id'] = 'undefined';
 
-            $this->content->add(
-                Property::fromResponse("", $rollupPropertyItem)
-            );
+            continue;
+//            $this->content->add(
+//                Property::fromResponse("", $rollupPropertyItem)
+//            );
         }
     }
 

@@ -46,7 +46,7 @@ class Select extends Property implements Modifiable
     {
         parent::fillFromRaw();
         if (!is_array($this->rawContent))
-            throw HandlingException::instance('The property-type is select, however the raw data-structure does not reprecent this type. Please check the raw response-data.', $this->rawContent);
+            throw HandlingException::instance('The property-type is select, however the raw data-structure does not reprecent this type. Please check the raw response-data.');
 
         if (array_key_exists('options', $this->rawContent)) {
             $this->options = new Collection();

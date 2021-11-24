@@ -23,12 +23,16 @@ class SelectItem extends Entity
 
 
     /**
-     * @param array $responseData
+     * @param  array  $responseData
      * @throws HandlingException
      */
     protected function setResponseData(array $responseData): void
     {
-        if (!Arr::exists($responseData, 'id')) throw HandlingException::instance('invalid json-array: no id provided');
+        if (!Arr::exists($responseData, 'id')) {
+            throw HandlingException::instance('invalid json-array: no id provided', [
+                'responseData' => $responseData
+            ]);
+        }
         $this->responseData = $responseData;
         $this->fillFromRaw();
     }

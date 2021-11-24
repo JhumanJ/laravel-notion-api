@@ -29,9 +29,7 @@ class SelectItem extends Entity
     protected function setResponseData(array $responseData): void
     {
         if (!Arr::exists($responseData, 'id')) {
-            throw HandlingException::instance('invalid json-array: no id provided', [
-                'responseData' => $responseData
-            ]);
+            $responseData['id'] = $responseData['name'];
         }
         $this->responseData = $responseData;
         $this->fillFromRaw();

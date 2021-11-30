@@ -24,11 +24,12 @@ class Database extends Endpoint
      */
     private Collection $filter;
 
+    private string $filterAggregate = 'or';
+
     /**
      * @var Collection
      */
     private Collection $sorts;
-
 
     /**
      * Database constructor.
@@ -60,7 +61,7 @@ class Database extends Endpoint
             $postData['sorts'] = Sorting::sortQuery($this->sorts);
 
         if ($this->filter->isNotEmpty())
-            $postData['filter']['or'] = Filter::filterQuery($this->filter); // TODO Compound filters!
+            $postData['filter'][$this->filterAggregate] = Filter::filterQuery($this->filter); // TODO Compound filters!
 
         if ($this->startCursor !== null)
             $postData['start_cursor'] = $this->startCursor;
@@ -82,9 +83,10 @@ class Database extends Endpoint
      * @param Collection $filter
      * @return $this
      */
-    public function filterBy(Collection $filter): Database
+    public function filterBy(Collection $filter, $filterAggregate = 'or'): Database
     {
         $this->filter = $filter;
+        $this->filterAggregate = $filterAggregate;
         return $this;
     }
 

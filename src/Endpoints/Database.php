@@ -26,9 +26,9 @@ class Database extends Endpoint
 
     private string $filterAggregate = 'or';
 
-    private array $rawFilter;
+    private ?array $rawFilter;
 
-    private array $rawSort;
+    private ?array $rawSort;
 
     /**
      * @var Collection

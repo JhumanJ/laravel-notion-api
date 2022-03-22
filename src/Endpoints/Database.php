@@ -26,6 +26,10 @@ class Database extends Endpoint
 
     private string $filterAggregate = 'or';
 
+    private array $rawFilter;
+
+    private array $rawSort;
+
     /**
      * @var Collection
      */
@@ -57,11 +61,17 @@ class Database extends Endpoint
     {
         $postData = [];
 
-        if ($this->sorts->isNotEmpty())
+        if ($this->sorts->isNotEmpty()) {
             $postData['sorts'] = Sorting::sortQuery($this->sorts);
+        } else if ($this->rawSort) {
+            $postData['sorts'] = $this->rawSort;
+        }
 
-        if ($this->filter->isNotEmpty())
-            $postData['filter'][$this->filterAggregate] = Filter::filterQuery($this->filter); // TODO Compound filters!
+        if ($this->filter->isNotEmpty()) {
+            $postData['filter'][$this->filterAggregate] = Filter::filterQuery($this->filter);
+        }else if ($this->rawFilter) {
+            $postData['filter'] = $this->rawFilter;
+        }
 
         if ($this->startCursor !== null)
             $postData['start_cursor'] = $this->startCursor;
@@ -90,6 +100,12 @@ class Database extends Endpoint
         return $this;
     }
 
+    public function filterByRaw(array $filter)
+    {
+        $this->rawFilter = $filter;
+        return $this;
+    }
+
     /**
      * @param Collection $sorts
      * @return $this
@@ -97,6 +113,12 @@ class Database extends Endpoint
     public function sortBy(Collection $sorts): Database
     {
         $this->sorts = $sorts;
+        return $this;
+    }
+
+    public function sortByRaw(array $sorts)
+    {
+        $this->rawSort = $sorts;
         return $this;
     }
 }

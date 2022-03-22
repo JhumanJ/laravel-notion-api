@@ -48,6 +48,8 @@ class Database extends Endpoint
 
         $this->sorts = new Collection();
         $this->filter = new Collection();
+        $this->rawFilter = null;
+        $this->rawSort = null;
 
         parent::__construct($notion);
     }

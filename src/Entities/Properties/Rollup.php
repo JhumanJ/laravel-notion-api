@@ -37,6 +37,8 @@ class Rollup extends Property
                 case 'date':
                     $this->setRollupContentDate();
                     break;
+                case 'unsupported':
+                    break;
                 default:
                     throw new HandlingException("Unexpected rollupType {$this->rollupType}");
         }

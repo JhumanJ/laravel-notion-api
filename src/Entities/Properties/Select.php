@@ -45,17 +45,19 @@ class Select extends Property implements Modifiable
     protected function fillFromRaw(): void
     {
         parent::fillFromRaw();
-        if (!is_array($this->rawContent))
-            throw HandlingException::instance('The property-type is select, however the raw data-structure does not reprecent this type. Please check the raw response-data.');
+        if (!empty($this->rawContent)) {
+            if (!is_array($this->rawContent))
+                throw HandlingException::instance('The property-type is select, however the raw data-structure does not reprecent this type. Please check the raw response-data.');
 
-        if (array_key_exists('options', $this->rawContent)) {
-            $this->options = new Collection();
-            foreach ($this->rawContent['options'] as $key => $item) {
-                $this->options->add(new SelectItem($item));
-            }
-        } else {
-            foreach ($this->rawContent as $key => $item) {
-                $this->content = new SelectItem($this->rawContent);
+            if (array_key_exists('options', $this->rawContent)) {
+                $this->options = new Collection();
+                foreach ($this->rawContent['options'] as $key => $item) {
+                    $this->options->add(new SelectItem($item));
+                }
+            } else {
+                foreach ($this->rawContent as $key => $item) {
+                    $this->content = new SelectItem($this->rawContent);
+                }
             }
         }
     }

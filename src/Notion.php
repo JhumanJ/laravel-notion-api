@@ -56,7 +56,7 @@ class Notion
     {
         $this->setToken($token);
 
-        $this->validVersions = collect(['v1']);
+        $this->validVersions = collect(['v1','v2','v3']);
 
         $this->setVersion($version);
         $this->connect();
@@ -99,6 +99,30 @@ class Notion
     public function v1(): Notion
     {
         $this->setVersion('v1');
+        return $this;
+    }
+
+    /**
+     * Wrapper function to set version to v2.
+     *
+     * @return $this
+     * @throws HandlingException
+     */
+    public function v2(): Notion
+    {
+        $this->setVersion('v2');
+        return $this;
+    }
+
+    /**
+     * Wrapper function to set version to v3.
+     *
+     * @return $this
+     * @throws HandlingException
+     */
+    public function v3(): Notion
+    {
+        $this->setVersion('v3');
         return $this;
     }
 
@@ -229,6 +253,10 @@ class Notion
         switch ($this->version) {
             case 'v1':
                 return '2021-05-13';
+            case 'v2':
+                return '2021-08-16';
+            case 'v3':
+                return '2022-02-22';
             default:
                 throw new HandlingException('Invalid version.');
         }

@@ -34,6 +34,11 @@ class Notion
     /**
      * @var string
      */
+    private string $versionHeader;
+
+    /**
+     * @var string
+     */
     private string $token;
 
     /**
@@ -52,13 +57,14 @@ class Notion
      * @param string|null $token
      * @throws HandlingException
      */
-    public function __construct(string $token, string $version = 'v1')
+    public function __construct(string $token, string $version = 'v1', string $versionHeader = '2021-05-13')
     {
         $this->setToken($token);
 
-        $this->validVersions = collect(['v1','v2','v3']);
+        $this->validVersions = collect(['v1']);
 
         $this->setVersion($version);
+        $this->versionHeader = $versionHeader;
         $this->connect();
 
     }
@@ -99,30 +105,6 @@ class Notion
     public function v1(): Notion
     {
         $this->setVersion('v1');
-        return $this;
-    }
-
-    /**
-     * Wrapper function to set version to v2.
-     *
-     * @return $this
-     * @throws HandlingException
-     */
-    public function v2(): Notion
-    {
-        $this->setVersion('v2');
-        return $this;
-    }
-
-    /**
-     * Wrapper function to set version to v3.
-     *
-     * @return $this
-     * @throws HandlingException
-     */
-    public function v3(): Notion
-    {
-        $this->setVersion('v3');
         return $this;
     }
 
@@ -236,29 +218,7 @@ class Notion
     private function buildRequestHeader(): array
     {
         return [
-            'Notion-Version' => $this->mapVersionToHeaderVersion()
+            'Notion-Version' => $this->versionHeader
         ];
-    }
-
-    /**
-     * Due to the inconsistency of the Notion API requiring a endpoint url
-     * with v* as well as a dated version in the request header, this method
-     * maps the given version (e.g. v1) to the version date Notion requires
-     * in the header (e.g. "2021-05-13").
-     * @return string
-     * @throws HandlingException
-     */
-    private function mapVersionToHeaderVersion(): string
-    {
-        switch ($this->version) {
-            case 'v1':
-                return '2021-05-13';
-            case 'v2':
-                return '2021-08-16';
-            case 'v3':
-                return '2022-02-22';
-            default:
-                throw new HandlingException('Invalid version.');
-        }
     }
 }

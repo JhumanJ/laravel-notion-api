@@ -6,6 +6,13 @@ return [
 	 */
 	'version' => 'v1',
 
+    /**
+     * The default Notion API version to use.
+     */
+    'version_header' => [
+        'v1' => '2021-05-13'
+    ],
+
 	/**
 	 * Your Notion API token.
 	 */

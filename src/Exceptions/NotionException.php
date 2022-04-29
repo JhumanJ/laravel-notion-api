@@ -35,6 +35,13 @@ class NotionException extends LaravelNotionAPIException
     {
         $responseBody = json_decode($response->getBody()->getContents(), true);
 
+        if (!is_array($responseBody) || empty($responseBody)) {
+            return new NotionException(
+                'Unknown Notion Exception',
+                0
+            );
+        }
+
         $errorCode = $errorMessage = "";
         if (array_key_exists("code", $responseBody)) {
             $errorCode = "({$responseBody["code"]})";

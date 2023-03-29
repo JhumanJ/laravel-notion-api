@@ -17,4 +17,11 @@ return [
 	 * Your Notion API token.
 	 */
     'notion-api-token' => env('NOTION_API_TOKEN', '')
+
+    /**
+     * HTTP client configuration.
+     */
+    'retry' => 3,
+
+    'timeout' => 10,
 ];

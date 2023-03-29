@@ -78,7 +78,9 @@ class Notion
     {
         $this->connection = Http
             ::withHeaders($this->buildRequestHeader())
-            ->withToken($this->token);
+            ->withToken($this->token)
+            ->timeout(config('laravel-notion-api.timeout'))
+            ->retry(config('laravel-notion-api.retry'), 100);
         return $this;
     }
 

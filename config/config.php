@@ -16,7 +16,7 @@ return [
 	/**
 	 * Your Notion API token.
 	 */
-    'notion-api-token' => env('NOTION_API_TOKEN', '')
+    'notion-api-token' => env('NOTION_API_TOKEN', ''),
 
     /**
      * HTTP client configuration.

@@ -75,7 +75,7 @@ class Text extends Property implements Modifiable
     /**
      * @return RichText
      */
-    public function getContent(): RichText
+    public function getContent(): ?RichText
     {
         return $this->getRichText();
     }
@@ -83,7 +83,7 @@ class Text extends Property implements Modifiable
     /**
      * @return RichText
      */
-    public function getRichText(): RichText
+    public function getRichText(): ?RichText
     {
         return $this->content;
     }
@@ -91,7 +91,7 @@ class Text extends Property implements Modifiable
     /**
      * @return string
      */
-    public function getPlainText(): string
+    public function getPlainText(): ?string
     {
         return $this->plainText;
     }

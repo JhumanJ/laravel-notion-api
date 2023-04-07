@@ -50,7 +50,7 @@ class Number extends Property implements Modifiable
     /**
      * @return float
      */
-    public function getContent(): float
+    public function getContent(): ?float
     {
         return $this->content;
     }
@@ -58,7 +58,7 @@ class Number extends Property implements Modifiable
     /**
      * @return float
      */
-    public function getNumber(): float
+    public function getNumber(): ?float
     {
         return $this->content;
     }

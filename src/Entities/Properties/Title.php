@@ -74,7 +74,7 @@ class Title extends Property implements Modifiable
     /**
      * @return RichText
      */
-    public function getContent(): RichText
+    public function getContent(): ?RichText
     {
         return $this->getRichText();
     }
@@ -82,7 +82,7 @@ class Title extends Property implements Modifiable
     /**
      * @return RichText
      */
-    public function getRichText(): RichText
+    public function getRichText(): ?RichText
     {
         return $this->content;
     }
@@ -90,7 +90,7 @@ class Title extends Property implements Modifiable
     /**
      * @return string
      */
-    public function getPlainText(): string
+    public function getPlainText(): ?string
     {
         return $this->plainText;
     }

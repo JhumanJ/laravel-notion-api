@@ -76,7 +76,7 @@ class Date extends Property implements Modifiable
     /**
      * @return RichDate
      */
-    public function getContent(): RichDate
+    public function getContent(): ?RichDate
     {
         return $this->content;
     }
@@ -92,7 +92,7 @@ class Date extends Property implements Modifiable
     /**
      * @return DateTime
      */
-    public function getStart(): DateTime
+    public function getStart(): ?DateTime
     {
         return $this->getContent()->getStart();
     }
@@ -100,7 +100,7 @@ class Date extends Property implements Modifiable
     /**
      * @return DateTime
      */
-    public function getEnd(): DateTime
+    public function getEnd(): ?DateTime
     {
         return $this->getContent()->getEnd();
     }

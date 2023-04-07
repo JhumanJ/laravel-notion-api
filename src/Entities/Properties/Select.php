@@ -65,7 +65,7 @@ class Select extends Property implements Modifiable
     /**
      * @return SelectItem
      */
-    public function getContent(): SelectItem
+    public function getContent(): ?SelectItem
     {
         return $this->getItem();
     }
@@ -73,7 +73,7 @@ class Select extends Property implements Modifiable
     /**
      * @return SelectItem
      */
-    public function getItem(): SelectItem
+    public function getItem(): ?SelectItem
     {
         return $this->content;
     }

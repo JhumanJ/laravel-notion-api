@@ -47,7 +47,7 @@ class PhoneNumber extends Property implements Modifiable
     /**
      * @return string
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -55,7 +55,7 @@ class PhoneNumber extends Property implements Modifiable
     /**
      * @return string
      */
-    public function getPhoneNumber(): string
+    public function getPhoneNumber(): ?string
     {
         return $this->content;
     }

@@ -47,7 +47,7 @@ class Url extends Property implements Modifiable
     /**
      * @return string
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -55,7 +55,7 @@ class Url extends Property implements Modifiable
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->content;
     }

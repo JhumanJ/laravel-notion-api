@@ -80,7 +80,10 @@ class Notion
             ::withHeaders($this->buildRequestHeader())
             ->withToken($this->token)
             ->timeout(config('laravel-notion-api.timeout'))
-            ->retry(config('laravel-notion-api.retry'), 100);
+            ->retry(
+                config('laravel-notion-api.retry'),
+                config('laravel-notion-api.sleep')
+            );
         return $this;
     }
 

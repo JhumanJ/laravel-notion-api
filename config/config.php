@@ -24,4 +24,6 @@ return [
     'retry' => 3,
 
     'timeout' => 10,
+
+    'sleep' => 3000,
 ];

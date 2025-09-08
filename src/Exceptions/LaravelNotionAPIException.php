@@ -30,7 +30,6 @@ abstract class LaravelNotionAPIException extends Exception
      */
     abstract public static function instance(string $message, array $payload = []): LaravelNotionAPIException;
 
-
     /**
      * @return array
      */

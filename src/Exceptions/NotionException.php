@@ -36,10 +36,12 @@ class NotionException extends LaravelNotionAPIException
         $responseBody = json_decode($response->getBody()->getContents(), true);
 
         if (!is_array($responseBody) || empty($responseBody)) {
-            return new NotionException(
+            $exception = new NotionException(
                 'Unknown Notion Exception',
                 0
             );
+            $exception->payload = [];
+            return $exception;
         }
 
         $errorCode = $errorMessage = "";
@@ -53,10 +55,12 @@ class NotionException extends LaravelNotionAPIException
 
         $message = "{$response->getReasonPhrase()}: {$errorCode} {$errorMessage}";
 
-        return new NotionException(
+        $exception = new NotionException(
             $message,
             0,
             $response->toException()
         );
+        $exception->payload = $responseBody;
+        return $exception;
     }
 }

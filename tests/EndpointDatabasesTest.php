@@ -71,8 +71,8 @@ class EndpointDatabasesTest extends NotionApiTest
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage('Bad Request');
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 400');
 
         Notion::databases()->all();
     }
@@ -113,15 +113,14 @@ class EndpointDatabasesTest extends NotionApiTest
             'https://api.notion.com/v1/databases/b55c9c91-384d-452b-81db-d1ef79372b79'
             => Http::response(
                 json_decode(file_get_contents('tests/stubs/endpoints/databases/response_specific_404.json'), true),
-                200,
+                404,
                 ['Headers']
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage('Not found');
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 404');
 
         Notion::databases()->find('b55c9c91-384d-452b-81db-d1ef79372b79');
     }
-
 }

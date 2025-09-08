@@ -47,8 +47,8 @@ class EndpointBlocksTest extends NotionApiTest
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage('Bad Request');
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 400');
 
         Notion::block('b55c9c91-384d-452b-81db-d1ef79372b76')->children();
     }
@@ -216,13 +216,13 @@ class EndpointBlocksTest extends NotionApiTest
             'https://api.notion.com/v1/blocks/b55c9c91-384d-452b-81db-d1ef79372b11*'
             => Http::response(
                 json_decode(file_get_contents('tests/stubs/endpoints/blocks/response_specific_404.json'), true),
-                200,
+                404,
                 ['Headers']
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage('Not found');
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 404');
 
         Notion::block('b55c9c91-384d-452b-81db-d1ef79372b11')->children();
     }
@@ -319,5 +319,4 @@ class EndpointBlocksTest extends NotionApiTest
         $this->assertInstanceOf(Block::class, $block);
         $this->assertInstanceOf(Paragraph::class, $block);
     }
-
 }

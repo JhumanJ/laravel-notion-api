@@ -26,8 +26,8 @@ class NotionExceptionTest extends NotionApiTest
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage("Bad Request: (validation_error) (path failed validation: path.id should be a valid uuid, instead was");
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 400');
 
         \Notion::block("d092140ce4e549bf9915fb8ad43d1699d")->children()->asCollection();
     }

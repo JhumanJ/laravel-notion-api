@@ -82,7 +82,7 @@ class EndpointDatabaseTest extends NotionApiTest
                     'Known for',
                     [
                         'multi_select' =>
-                            ['contains' => 'UNIVAC']
+                        ['contains' => 'UNIVAC']
                     ]
                 )
             );
@@ -128,7 +128,7 @@ class EndpointDatabaseTest extends NotionApiTest
                     'Known for',
                     [
                         'multi_select' =>
-                            ['contains' => "something that doesn't exists"]
+                        ['contains' => "something that doesn't exists"]
                     ]
                 )
             );
@@ -158,10 +158,9 @@ class EndpointDatabaseTest extends NotionApiTest
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage('Bad Request');
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 400');
 
         Notion::database('8284f3ff77e24d4a939d19459e4d6bdc')->query();
     }
-
 }

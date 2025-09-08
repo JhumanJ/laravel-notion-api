@@ -59,5 +59,4 @@ class NotionException extends LaravelNotionAPIException
             $response->toException()
         );
     }
-
 }

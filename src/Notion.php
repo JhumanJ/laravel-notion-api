@@ -66,7 +66,6 @@ class Notion
         $this->setVersion($version);
         $this->versionHeader = $versionHeader;
         $this->connect();
-
     }
 
     /**

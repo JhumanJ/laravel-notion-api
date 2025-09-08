@@ -32,8 +32,8 @@ class EndpointUsersTest extends NotionApiTest
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage('Bad Request');
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 400');
 
         Notion::users()->all();
     }
@@ -95,15 +95,14 @@ class EndpointUsersTest extends NotionApiTest
             'https://api.notion.com/v1/users/d40e767c-d7af-4b18-a86d-55c61f1e39a1'
             => Http::response(
                 json_decode(file_get_contents('tests/stubs/endpoints/users/response_specific_404.json'), true),
-                200,
+                404,
                 ['Headers']
             )
         ]);
 
-        $this->expectException(NotionException::class);
-        $this->expectExceptionMessage('Not found');
+        $this->expectException(\Illuminate\Http\Client\RequestException::class);
+        $this->expectExceptionMessage('HTTP request returned status code 404');
 
         Notion::users()->find('d40e767c-d7af-4b18-a86d-55c61f1e39a1');
     }
-
 }

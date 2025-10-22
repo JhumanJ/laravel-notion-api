@@ -3,10 +3,10 @@
     "id": "afd5f6fb-1cbd-41d1-a108-a22ae0d9bac8",
     "created_time": "2021-05-14T20:58:00.000Z",
     "last_edited_time": "2021-05-20T07:33:00.000Z",
-    "parent": {
-        "type": "database_id",
-        "database_id": "f2939732-f694-4ce2-b613-f28db6ded673"
-    },
+  "parent": {
+    "type": "data_source_id",
+    "data_source_id": "a42a62ed-9b51-4b98-9dea-ea6d091bc508"
+  },
     "archived": false,
     "properties": {
         "NumberProp": {

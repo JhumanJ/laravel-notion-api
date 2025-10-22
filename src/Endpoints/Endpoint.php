@@ -16,6 +16,7 @@ class Endpoint
 {
     public const BASE_URL = 'https://api.notion.com/';
     public const DATABASES = 'databases';
+    public const DATA_SOURCES = 'data_sources';
     public const BLOCKS = 'blocks';
     public const PAGES = 'pages';
     public const USERS = 'users';

@@ -40,6 +40,20 @@ class Relation extends Property implements Modifiable
     }
 
     /**
+     * For schema reads (database property definitions), relation now includes database_id and data_source_id.
+     * We keep both in rawContent; add helpers for convenience.
+     */
+    public function getTargetDatabaseId(): ?string
+    {
+        return $this->rawContent['database_id'] ?? null;
+    }
+
+    public function getTargetDataSourceId(): ?string
+    {
+        return $this->rawContent['data_source_id'] ?? null;
+    }
+
+    /**
      *
      */
     protected function fillRelation(): void

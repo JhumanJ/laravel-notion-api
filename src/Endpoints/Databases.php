@@ -18,21 +18,7 @@ use FiveamCode\LaravelNotionApi\Exceptions\NotionException;
  */
 class Databases extends Endpoint implements EndpointInterface
 {
-    /**
-     * List databases
-     * url: https://api.notion.com/{version}/databases
-     * notion-api-docs: https://developers.notion.com/reference/get-databases
-     *
-     * @return DatabaseCollection
-     * @throws HandlingException
-     * @throws NotionException
-     * @deprecated
-     */
-    public function all(): DatabaseCollection
-    {
-        $resultData = $this->getJson($this->url(Endpoint::DATABASES) . "?{$this->buildPaginationQuery()}");
-        return new DatabaseCollection($resultData);
-    }
+    // The List databases endpoint is deprecated and removed in this package for 2025-09-03
 
     /**
      * Retrieve a database
@@ -49,6 +35,39 @@ class Databases extends Endpoint implements EndpointInterface
         $result = $this
             ->getJson($this->url(Endpoint::DATABASES . "/{$databaseId}"));
 
+        return new Database($result);
+    }
+
+    /**
+     * Create a database
+     * url: https://api.notion.com/{version}/databases
+     * notion-api-docs: https://developers.notion.com/reference/create-a-database
+     *
+     * @param array $body
+     * @return Database
+     * @throws HandlingException
+     * @throws NotionException
+     */
+    public function create(array $body): Database
+    {
+        $result = $this->post($this->url(Endpoint::DATABASES), $body)->json();
+        return new Database($result);
+    }
+
+    /**
+     * Update a database
+     * url: https://api.notion.com/{version}/databases/{database_id}
+     * notion-api-docs: https://developers.notion.com/reference/update-a-database
+     *
+     * @param string $databaseId
+     * @param array $body
+     * @return Database
+     * @throws HandlingException
+     * @throws NotionException
+     */
+    public function update(string $databaseId, array $body): Database
+    {
+        $result = $this->patch($this->url(Endpoint::DATABASES . "/{$databaseId}"), $body)->json();
         return new Database($result);
     }
 }

@@ -12,6 +12,8 @@
 
 This package provides a simple and crisp way to access the Notion API endpoints, query data and update existing entries.
 
+> Note: This package targets Notion API version 2025-09-03 and supports the new data source model. Databases are structures (create, update, retrieve). Content queries and page creation within a database now target data sources. See Notion’s upgrade guide: https://developers.notion.com/docs/upgrade-guide-2025-09-03.
+
 ## Installation
 
 You can install the package via composer:
@@ -19,6 +21,10 @@ You can install the package via composer:
 ```bash
 composer require fiveam-code/laravel-notion-api
 ```
+
+### Upgrading from Previous Versions
+
+This version introduces **breaking changes** for Notion API 2025-09-03. If you're upgrading from an older version, please review the [MIGRATION.md](MIGRATION.md) file for detailed upgrade instructions.
 
 ### Authorization
 
@@ -37,35 +43,44 @@ Head over to the [Documentation](https://5amco.de/docs) of this package.
 ### 🔥 Code Examples to jumpstart your Notion API Project
 
 #### Basic Setup (+ example)
+
 ```php
-use FiveamCode\LaravelNotionApi\Notion; 
+use FiveamCode\LaravelNotionApi\Notion;
 
 # Access through Facade (token has to be set in .env)
 \Notion::databases()->find($databaseId);
 
 # Custom instantiation (necessary if you want to access more than one NotionApi integration)
-$notion = new Notion($apiToken, $apiVersion); // version-default is 'v1'
+$notion = new Notion($apiToken, $apiVersion); // version-default is 'v1' (Notion-Version 2025-09-03)
 $notion->databases()->find($databaseId);
 ```
 
 #### Fetch Page Information
+
 ```php
 // Returns a specific page
 \Notion::pages()->find($yourPageId);
 ```
 
 #### Search
+
 ```php
-// Returns a collection pages and databases of your workspace (included in your integration-token)
+// Returns pages and data sources of your workspace
 \Notion::search($searchText)
+        ->query()
+        ->asCollection();
+
+// Only data sources
+\Notion::search($searchText)
+        ->onlyDataSources()
         ->query()
         ->asCollection();
 ```
 
-#### Query Database
+#### Query Data Source
 
 ```php
-// Queries a specific database and returns a collection of pages (= database entries)
+// Queries a specific data source and returns a collection of pages
 $sortings = new Collection();
 $filters = new Collection();
 
@@ -79,15 +94,22 @@ $filters
 // or
 $filters
   ->add(Filter::rawFilter('Tags', ['multi_select' => ['contains' => 'great']]));
-  
-\Notion::database($yourDatabaseId)
-      ->filterBy($filters) // filters are optional
-      ->sortBy($sortings) // sorts are optional
-      ->limit(5) // limit is optional
-      ->query()
+
+// Retrieve database and pick a data source id
+$db = \Notion::databases()->find($yourDatabaseId);
+$dataSourceId = $db->getFirstDataSourceId();
+
+// Build request body similar to old query payload
+$body = [
+  'filter' => ['or' => Filter::filterQuery($filters)],
+  'sorts' => Sorting::sortQuery($sortings),
+  'page_size' => 5,
+];
+
+\Notion::dataSources()
+      ->query($dataSourceId, $body)
       ->asCollection();
 ```
-
 
 ### Testing
 

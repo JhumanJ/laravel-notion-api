@@ -5,7 +5,7 @@ namespace FiveamCode\LaravelNotionApi\Tests;
 use Notion;
 use Illuminate\Support\Facades\Http;
 use FiveamCode\LaravelNotionApi\Entities\Page;
-use FiveamCode\LaravelNotionApi\Entities\Database;
+use FiveamCode\LaravelNotionApi\Entities\DataSource;
 use FiveamCode\LaravelNotionApi\Exceptions\NotionException;
 use FiveamCode\LaravelNotionApi\Entities\Collections\EntityCollection;
 
@@ -40,7 +40,7 @@ class EndpointSearchTest extends NotionApiTest
     }
 
     /** @test */
-    public function it_returns_all_pages_and_databases_of_the_workspace_as_collection_with_entity_objects()
+    public function it_returns_all_pages_and_data_sources_of_the_workspace_as_collection_with_entity_objects()
     {
         // successful /v1/search
         Http::fake([
@@ -58,10 +58,10 @@ class EndpointSearchTest extends NotionApiTest
         $this->assertIsIterable($entityCollection);
         $this->assertCount(2, $entityCollection);
 
-        $database = $entityCollection[0];
+        $dataSource = $entityCollection[0];
         $page = $entityCollection[1];
 
-        $this->assertInstanceOf(Database::class, $database);
+        $this->assertInstanceOf(DataSource::class, $dataSource);
         $this->assertInstanceOf(Page::class, $page);
     }
 
@@ -91,7 +91,7 @@ class EndpointSearchTest extends NotionApiTest
 
 
     /** @test */
-    public function it_returns_only_databases_of_the_workspace_as_collection_with_entity_objects()
+    public function it_returns_only_data_sources_of_the_workspace_as_collection_with_entity_objects()
     {
         // successful /v1/search
         Http::fake([
@@ -103,14 +103,14 @@ class EndpointSearchTest extends NotionApiTest
             )
         ]);
 
-        $searchResult = Notion::search()->onlyDatabases()->query();
+        $searchResult = Notion::search()->onlyDataSources()->query();
         $entityCollection = $searchResult->asCollection();
         $this->assertInstanceOf(EntityCollection::class, $searchResult);
         $this->assertIsIterable($entityCollection);
         $this->assertCount(1, $entityCollection);
 
-        $database = $entityCollection->first();
+        $dataSource = $entityCollection->first();
 
-        $this->assertInstanceOf(Database::class, $database);
+        $this->assertInstanceOf(DataSource::class, $dataSource);
     }
 }

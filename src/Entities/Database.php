@@ -76,6 +76,11 @@ class Database extends Entity
     protected Collection $properties;
 
     /**
+     * @var Collection
+     */
+    protected Collection $dataSources;
+
+    /**
      * @var DateTime
      */
     protected DateTime $createdTime;
@@ -109,6 +114,7 @@ class Database extends Entity
         $this->fillTitle();
         $this->fillObjectType();
         $this->fillProperties();
+        $this->fillDataSources();
         $this->fillDatabaseUrl();
         $this->fillCreatedTime();
         $this->fillLastEditedTime();
@@ -196,6 +202,36 @@ class Database extends Entity
                 $this->propertyMap[$propertyKey] = $propertyObj;
             }
         }
+    }
+
+    /**
+     * Capture data_sources array from database response (2025-09-03)
+     */
+    private function fillDataSources(): void
+    {
+        $this->dataSources = new Collection();
+        if (Arr::exists($this->responseData, 'data_sources') && is_array($this->responseData['data_sources'])) {
+            foreach ($this->responseData['data_sources'] as $ds) {
+                $this->dataSources->add($ds);
+            }
+        }
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getDataSources(): Collection
+    {
+        return $this->dataSources;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFirstDataSourceId(): ?string
+    {
+        $first = $this->dataSources->first();
+        return $first['id'] ?? null;
     }
 
     /**

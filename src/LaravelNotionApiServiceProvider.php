@@ -32,7 +32,11 @@ class LaravelNotionApiServiceProvider extends ServiceProvider
 
 
         $this->app->singleton(Notion::class, function () {
-            return new Notion(config('laravel-notion-api.notion-api-token'), config('laravel-notion-api.version'));
+            return new Notion(
+                config('laravel-notion-api.notion-api-token'),
+                config('laravel-notion-api.version'),
+                config('laravel-notion-api.version_header.' . config('laravel-notion-api.version'))
+            );
         });
     }
 }

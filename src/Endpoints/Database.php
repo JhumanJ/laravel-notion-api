@@ -59,37 +59,7 @@ class Database extends Endpoint
      * @throws \FiveamCode\LaravelNotionApi\Exceptions\HandlingException
      * @throws \FiveamCode\LaravelNotionApi\Exceptions\NotionException
      */
-    public function query(): PageCollection
-    {
-        $postData = [];
-
-        if ($this->sorts->isNotEmpty()) {
-            $postData['sorts'] = Sorting::sortQuery($this->sorts);
-        } else if ($this->rawSort) {
-            $postData['sorts'] = $this->rawSort;
-        }
-
-        if ($this->filter->isNotEmpty()) {
-            $postData['filter'][$this->filterAggregate] = Filter::filterQuery($this->filter);
-        }else if ($this->rawFilter) {
-            $postData['filter'] = $this->rawFilter;
-        }
-
-        if ($this->startCursor !== null)
-            $postData['start_cursor'] = (string) $this->startCursor;
-
-        if ($this->pageSize !== null)
-            $postData['page_size'] = $this->pageSize;
-
-        $response = $this
-            ->post(
-                $this->url(Endpoint::DATABASES . "/{$this->databaseId}/query"),
-                $postData
-            )
-            ->json();
-
-        return new PageCollection($response);
-    }
+    // Database::query is no longer supported in 2025-09-03. Use DataSources::query with a data_source_id instead.
 
     /**
      * @param Collection $filter

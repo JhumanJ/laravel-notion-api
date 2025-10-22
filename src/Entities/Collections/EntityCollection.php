@@ -4,6 +4,7 @@ namespace FiveamCode\LaravelNotionApi\Entities\Collections;
 
 
 use FiveamCode\LaravelNotionApi\Entities\Database;
+use FiveamCode\LaravelNotionApi\Entities\DataSource;
 use FiveamCode\LaravelNotionApi\Entities\Entity;
 use FiveamCode\LaravelNotionApi\Entities\Page;
 use FiveamCode\LaravelNotionApi\Exceptions\HandlingException;
@@ -82,6 +83,7 @@ class EntityCollection
             if (Arr::exists($pageChild, 'object')) {
                 if ($pageChild['object'] == 'page') $this->collection->add(new Page($pageChild));
                 if ($pageChild['object'] == 'database') $this->collection->add(new Database($pageChild));
+                if ($pageChild['object'] == 'data_source') $this->collection->add(new DataSource($pageChild));
             }
         }
     }

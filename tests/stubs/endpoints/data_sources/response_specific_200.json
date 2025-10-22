@@ -1,0 +1,37 @@
+{
+  "object": "data_source",
+  "id": "a42a62ed-9b51-4b98-9dea-ea6d091bc508",
+  "name": "My Task Tracker",
+  "properties": {
+    "Name": {
+      "id": "title",
+      "name": "Name",
+      "type": "title",
+      "title": {}
+    },
+    "Status": {
+      "id": "status",
+      "name": "Status",
+      "type": "status",
+      "status": {
+        "options": [
+          {
+            "id": "option-1",
+            "name": "To Do",
+            "color": "default"
+          },
+          {
+            "id": "option-2",
+            "name": "In Progress",
+            "color": "blue"
+          },
+          {
+            "id": "option-3",
+            "name": "Done",
+            "color": "green"
+          }
+        ]
+      }
+    }
+  }
+}

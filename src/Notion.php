@@ -6,6 +6,7 @@ use FiveamCode\LaravelNotionApi\Endpoints\Block;
 use FiveamCode\LaravelNotionApi\Endpoints\Database;
 use FiveamCode\LaravelNotionApi\Endpoints\Databases;
 use FiveamCode\LaravelNotionApi\Endpoints\Endpoint;
+use FiveamCode\LaravelNotionApi\Endpoints\DataSources;
 use FiveamCode\LaravelNotionApi\Endpoints\Pages;
 use FiveamCode\LaravelNotionApi\Endpoints\Search;
 use FiveamCode\LaravelNotionApi\Endpoints\Users;
@@ -57,7 +58,7 @@ class Notion
      * @param string|null $token
      * @throws HandlingException
      */
-    public function __construct(string $token, string $version = 'v1', string $versionHeader = '2021-05-13')
+    public function __construct(string $token, string $version = 'v1', string $versionHeader = '2025-09-03')
     {
         $this->setToken($token);
 
@@ -65,6 +66,12 @@ class Notion
 
         $this->setVersion($version);
         $this->versionHeader = $versionHeader;
+        // Enforce minimum Notion-Version for this package
+        if (strcmp($this->versionHeader, '2025-09-03') < 0) {
+            throw HandlingException::instance('Unsupported Notion-Version. This package requires 2025-09-03 or newer.', [
+                'provided' => $this->versionHeader,
+            ]);
+        }
         $this->connect();
     }
 
@@ -172,6 +179,15 @@ class Notion
     public function users(): Users
     {
         return new Users($this);
+    }
+
+    /**
+     * @return DataSources
+     * @throws HandlingException
+     */
+    public function dataSources(): DataSources
+    {
+        return new DataSources($this);
     }
 
     /**

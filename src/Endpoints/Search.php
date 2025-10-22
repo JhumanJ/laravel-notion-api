@@ -98,6 +98,15 @@ class Search extends Endpoint
     /**
      * @return $this
      */
+    public function onlyDataSources(): Search
+    {
+        $this->filter = 'data_source';
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function onlyPages(): Search
     {
         $this->filter = 'page';

@@ -10,7 +10,7 @@ return [
      * The default Notion API version to use.
      */
     'version_header' => [
-        'v1' => '2021-05-13'
+        'v1' => '2025-09-03'
     ],
 
 	/**

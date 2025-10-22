@@ -36,7 +36,7 @@ class Pages extends Endpoint implements EndpointInterface
     /**
      * @return Page
      */
-    public function createInDatabase(string $parentId, Page $page): Page
+    public function createInDataSource(string $dataSourceId, Page $page): Page
     {
         $postData = [];
         $properties = [];
@@ -45,7 +45,7 @@ class Pages extends Endpoint implements EndpointInterface
             $properties[$property->getTitle()] = $property->getRawContent();
         }
 
-        $postData["parent"] = ["database_id" => $parentId];
+        $postData["parent"] = ["type" => "data_source_id", "data_source_id" => $dataSourceId];
         $postData["properties"] = $properties;
 
 

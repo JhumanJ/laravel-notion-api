@@ -5,9 +5,9 @@
     "results": [
         {
             "created_time": "2021-04-22T22:23:26.080Z",
-            "id": "e6c6f8ff-c70e-4970-91ba-98f03e0d7fc6",
+            "id": "a42a62ed-9b51-4b98-9dea-ea6d091bc508",
             "last_edited_time": "2021-04-23T04:21:00.000Z",
-            "object": "database",
+            "object": "data_source",
             "properties": {
                 "Name": {
                     "id": "title",
@@ -33,7 +33,7 @@
                         "underline": false
                     },
                     "href": null,
-                    "plain_text": "Tasks",
+                        "plain_text": "Tasks",
                     "text": {
                         "content": "Tasks",
                         "link": null
@@ -49,8 +49,8 @@
             "last_edited_time": "2021-04-23T04:21:00.000Z",
             "object": "page",
             "parent": {
-                "database_id": "e6c6f8ff-c70e-4970-91ba-98f03e0d7fc6",
-                "type": "database_id"
+                "type": "data_source_id",
+                "data_source_id": "a42a62ed-9b51-4b98-9dea-ea6d091bc508"
             },
             "properties": {
                 "Name": {

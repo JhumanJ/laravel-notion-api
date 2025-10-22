@@ -6,6 +6,7 @@ use FiveamCode\LaravelNotionApi\Endpoints\Block;
 use FiveamCode\LaravelNotionApi\Endpoints\Database;
 use FiveamCode\LaravelNotionApi\Endpoints\Databases;
 use FiveamCode\LaravelNotionApi\Endpoints\Endpoint;
+use FiveamCode\LaravelNotionApi\Endpoints\DataSource;
 use FiveamCode\LaravelNotionApi\Endpoints\DataSources;
 use FiveamCode\LaravelNotionApi\Endpoints\Pages;
 use FiveamCode\LaravelNotionApi\Endpoints\Search;
@@ -188,6 +189,18 @@ class Notion
     public function dataSources(): DataSources
     {
         return new DataSources($this);
+    }
+
+    /**
+     * Get a data source query builder for a specific data source
+     *
+     * @param string $dataSourceId
+     * @return DataSource
+     * @throws HandlingException
+     */
+    public function dataSource(string $dataSourceId): DataSource
+    {
+        return new DataSource($dataSourceId, $this);
     }
 
     /**

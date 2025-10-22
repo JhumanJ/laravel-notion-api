@@ -2,6 +2,39 @@
   "object": "data_source",
   "id": "a42a62ed-9b51-4b98-9dea-ea6d091bc508",
   "name": "My Task Tracker",
+  "icon": {
+    "type": "emoji",
+    "emoji": "✅"
+  },
+  "description": [
+    {
+      "type": "text",
+      "text": {
+        "content": "A data source to track tasks",
+        "link": null
+      },
+      "annotations": {
+        "bold": false,
+        "italic": false,
+        "strikethrough": false,
+        "underline": false,
+        "code": false,
+        "color": "default"
+      },
+      "plain_text": "A data source to track tasks",
+      "href": null
+    }
+  ],
+  "archived": false,
+  "in_trash": false,
+  "parent": {
+    "type": "database_id",
+    "database_id": "2945f481-4007-80b4-88ae-e038000c8ee3"
+  },
+  "database_parent": {
+    "type": "page_id",
+    "page_id": "2945f481-4007-80da-85cf-fe2b331d476a"
+  },
   "properties": {
     "Name": {
       "id": "title",

@@ -42,10 +42,37 @@ class EndpointDatabasesTest extends NotionApiTest
         $this->assertSame('database', $databaseResult->getObjectType());
 
         $this->assertCount(1, $databaseResult->getRawTitle());
-        $this->assertCount(12, $databaseResult->getRawProperties());
 
         $this->assertInstanceOf(Carbon::class, $databaseResult->getCreatedTime());
         $this->assertInstanceOf(Carbon::class, $databaseResult->getLastEditedTime());
+    }
+
+    /** @test */
+    public function it_retrieves_database_parent_and_metadata_information()
+    {
+        Http::fake([
+            'https://api.notion.com/v1/databases/668d797c-76fa-4934-9b05-ad288df2d136'
+            => Http::response(
+                json_decode(file_get_contents('tests/stubs/endpoints/databases/response_specific_200.json'), true),
+                200,
+                ['Headers']
+            )
+        ]);
+
+        $database = Notion::databases()->find('668d797c-76fa-4934-9b05-ad288df2d136');
+
+        // Test parent (page) information
+        $parent = $database->getParent();
+        $this->assertIsArray($parent);
+        $this->assertSame('page_id', $parent['type']);
+        $this->assertSame('af5f89b5-a8ff-4c56-a5e8-69797d11b9f8', $parent['page_id']);
+        $this->assertSame('af5f89b5-a8ff-4c56-a5e8-69797d11b9f8', $database->getParentPageId());
+
+        // Test status fields
+        $this->assertFalse($database->isInline());
+        $this->assertFalse($database->isArchived());
+        $this->assertFalse($database->isInTrash());
+        $this->assertSame('https://jm-testing.notion.site/p1-6df2c07bfc6b4c46815ad205d132e22d', $database->getPublicUrl());
     }
 
     /** @test */

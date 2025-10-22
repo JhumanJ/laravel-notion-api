@@ -49,6 +49,5 @@ class QueryHelper
         $this->validTimestamps = collect(['created_time', 'last_edited_time']);
         $this->validDirections = collect(['ascending', 'descending']);
 
-
     }
 }
